@@ -25,6 +25,6 @@ et les failles de dépendances déjà suivies en amont.
   `npm run verify` le contrôle à chaque push (`scripts/lib.mjs`, règles `privacyFindings`).
 - three.js est embarqué tel que publié (r160), sans modification ; aucune autre bibliothèque.
 - Aucune donnée personnelle : projets et progression restent dans `localStorage`.
-- **Chaîne de build minimale** : aucune dépendance d'exécution ; une seule dépendance de développement
+- **Chaîne de build minimale** : une seule bibliothèque d'exécution, three.js, embarquée telle que publiée ; une seule dépendance de développement
   (Playwright, pour les tests), contrôlée par `npm audit` à chaque exécution de la CI. Actions GitHub épinglées
   par empreinte SHA, jeton de CI en lecture seule.
