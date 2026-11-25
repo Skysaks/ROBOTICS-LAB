@@ -1,0 +1,8 @@
+/* sections */
+main{position:relative}
+.sec{max-width:1180px;margin:0 auto;padding:110px 28px 40px}
+.sec .kick{display:flex;align-items:center;gap:10px}.sec .kick:before{content:attr(data-n);color:var(--ink)}.sec .kick i{width:26px;height:1px;background:#b9b3a8}
+.sec h2{font:400 44px/1.1 var(--serif);margin:14px 0 14px;letter-spacing:-.015em}
+.sec .lead{font-size:16px;line-height:1.75;color:#3f3c37;max-width:620px;margin:0}
+.intro{display:grid;grid-template-columns:1.25fr 1fr;gap:60px;align-items:end;margin-bottom:38px}
+.feat{border-top:1px solid var(--line)}.feat div{display:grid;grid-template-columns:26px 1fr;padding:12px 0;border-bottom:1px solid var(--line);font-size:12.5px;color:#6a665f}.feat b{display:block;color:var(--ink);font-size:13.5px}.feat svg{margin-top:3px;color:#3f7d5a}

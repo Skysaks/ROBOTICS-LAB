@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robotics Lab — learn electronics by building in 3D</title>
+<meta name="description" content="Robotics Lab: explore Arduino, ESP32, Raspberry Pi and their modules in interactive 3D, wire them on a virtual workbench, simulate missions, then check your knowledge with a lesson and a quiz.">
+<meta name="theme-color" content="#EBE6DC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F7F86'/%3E%3Ctext x='32' y='44' font-family='-apple-system,Segoe UI,Helvetica,Arial,sans-serif' font-size='34' font-weight='700' text-anchor='middle' fill='%23FFFFFF'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles/01-base.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/02-navigation.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/03-accueil.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/04-assemblage.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/05-sections.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/06-atelier.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/07-fenetres.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/08-lecon-quiz.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/09-comparaison.css" data-bundle="styles">
+<link rel="stylesheet" href="styles/10-complements.css" data-bundle="styles"></head>
+<body>
+<header id="nav">
+  <a class="logo" href="#boards" data-go="boards"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="5" width="10" height="10" rx="2"/><path d="M8 2v3M12 2v3M8 15v3M12 15v3M2 8h3M2 12h3M15 8h3M15 12h3"/></svg><span>Robotics Lab</span></a>
+  <nav><a href="#boards" data-go="boards" class="on">Boards</a><a href="#workbench" data-go="workbench">Workbench</a><a href="#lesson" data-go="lesson">Lesson</a><a href="#quiz" data-go="quiz">Quiz</a><a href="#compare" data-go="compare">Compare</a><a href="#logbook" data-go="logbook">Logbook</a></nav>
+  <button class="pill dark" id="lofi">Lofi <span class="bars"><i></i><i></i><i></i></span></button>
+</header>
+
+<section id="boards">
+  <canvas id="gl"></canvas>
+  <div id="glabels"></div>
+  <div id="card" class="glass">
+    <div class="top"><span class="mono" id="cMaker"></span><span class="mono" id="cIdx"></span></div>
+    <h1 id="cName"></h1><p class="tag" id="cTag"></p>
+    <div class="row"><button class="pill dark" id="cOpen"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h4M7 2v4L3 13a1 1 0 0 0 1 1.5h8A1 1 0 0 0 13 13L9 6V2"/></svg>Open on the workbench</button><span class="pill" id="cLevel"></span></div>
+    <div class="foot">Eight boards every robot builder meets — in 3D you can take apart, wire up and run.</div>
+  </div>
+  <div id="pcard" class="glass" hidden>
+    <div class="top"><span class="mono" id="pKind">Part</span><span class="mono" id="pIdx"></span><button class="ibtn" id="pClose" aria-label="Close">✕</button></div>
+    <h2 id="pName"></h2><p id="pDesc"></p>
+    <div class="nav"><button class="ibtn" id="pPrev" aria-label="Previous part">←</button><button class="ibtn" id="pNext" aria-label="Next part">→</button><small>Drag to rotate,<br>pinch to zoom</small></div>
+  </div>
+  <div id="gtip" class="tip"></div>
+  <div id="gbar" class="glass">
+    <button data-v="34" class="on">3/4</button><button data-v="top">Top</button><button data-v="bottom">Bottom</button><button data-v="front">Front</button>
+    <span class="sep"></span>
+    <button id="bRot" class="on"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2v3h-3"/></svg>Rotate</button>
+    <button id="bPin"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 2v7M8 2v12M13 2v7"/><circle cx="3" cy="11" r="1.6"/><circle cx="13" cy="11" r="1.6"/></svg>Pinout</button><button id="bExp"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12l6 2.5 6-2.5M2 8l6 2.5L14 8M8 1.5L2 4l6 2.5L14 4z"/></svg>Explode</button><button id="bLab"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h8l4 4-4 4H2z"/></svg>Labels</button>
+    <span class="sep"></span>
+    <button id="bFind"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M8 1v3M8 12v3M1 8h3M12 8h3"/></svg>Find the part</button>
+    <button id="bAsm"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="4" r="2.2"/><path d="M8 6.2V11M4 14.5h8M8 11l-3 3.5M8 11l3 3.5"/></svg>Assemble it</button>
+  </div>
+  <div id="carousel" class="glass"></div>
+
+  <aside id="asm" class="glass" hidden>
+    <header><span class="mono">Assembly kit</span><button class="ibtn x" id="aX" aria-label="Exit">✕</button><h3 id="aName"></h3>
+      <div class="prog"><i id="aBar"></i></div><div class="cnt mono"><span><b id="aN">0</b> / <span id="aT">0</span> soldered</span><b id="aTime">0:00</b></div></header>
+    <div class="step"><span class="mono" id="aStep"></span><p id="aMsg"></p></div>
+    <div class="what" id="aWhat"><span class="mono">What this part does</span><b id="aPn"></b><span id="aPd"></span></div>
+    <div class="kit"><span class="mono">Kit parts · low parts first</span><ul id="aList"></ul></div>
+    <footer><button id="aHint">💡 Hint</button><button class="go" id="aAuto">Auto-place next</button>
+      <button class="wide" id="aCh"><i class="sw"></i>Challenge<span class="mono" id="aChS">Off</span></button>
+      <button id="aRe">Start over</button><button id="aExit2">Exit</button><small>Small SMD parts come pre-soldered, like a real kit.</small></footer>
+  </aside>
+  <button class="pill dark" id="asmExit" hidden><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="4" r="2.2"/><path d="M8 6.2V11M4 14.5h8M8 11l-3 3.5M8 11l3 3.5"/></svg>Exit assembly</button>
+  <div id="asmDone" class="glass" hidden><span class="mono">Board complete</span><h2 id="adT"></h2><p id="adP"></p><ul id="adL"></ul><button class="pill" id="adCopy">Copy parts list</button> <button class="pill dark" id="adAgain">Build it again</button> <button class="pill" id="adExit">Back to the boards</button></div>
+</section>
+
+<main>
+<section class="sec" id="workbench">
+  <div class="intro">
+    <div><div class="kick mono" data-n="01"><i></i>Workbench</div><h2>Wire it up on the workbench</h2>
+      <p class="lead">Put a board on the bench, add sensors, motors and displays, run jumper wires from pin to pin and press Run. Guided missions walk you through real circuits; Free build lets you wire anything.</p></div>
+    <div class="feat">
+      <div><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15V2h9l-2 3 2 3H3"/></svg><span><b>Missions</b>Step-by-step builds — blink an LED, read a sensor, drive a motor.</span></div>
+      <div><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h4c4 0 2 8 6 8h2M2 4l2-2M2 4l2 2"/></svg><span><b>Real wiring</b>Click a pin, click another: the bench checks every connection before power-up.</span></div>
+      <div><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg><span><b>Room to work</b>Press <b style="display:inline;font-size:inherit">Full screen</b> in the workbench toolbar to give the bench the whole display.</span></div>
+    </div>
+  </div>
+  <div id="bench">
+    <div id="btool">
+      <button class="pill" id="bMis">Missions</button><button class="pill" id="bProj">Projects</button><h3 id="bTitle"></h3><span class="mono" id="bMeta"></span>
+      <button class="pill dark" id="bRun">Run</button><button class="pill" id="bAuto">Wire it for me</button><button class="pill" id="bClr">Remove wires</button><button class="pill" id="bSol"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 14l5-5M6.5 9.5l3-3 4-4.5 1 1-4.5 4-3 3"/></svg>Solder</button><button class="pill" id="bUndo" aria-label="Undo" title="Undo (Ctrl+Z)">↶</button><button class="pill" id="bRedo" aria-label="Redo" title="Redo (Ctrl+Shift+Z)">↷</button>
+      <button class="pill" id="bTop">Top view</button><button class="pill" id="bSnd">Sound on</button><button class="pill" id="bLofi">Lofi</button>
+      <button class="pill" id="bFull"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg>Full screen</button>
+    </div>
+    <div id="pal"></div>
+    <div id="stage"><canvas id="bgl"></canvas><div id="calls"></div><div id="hint"></div><div id="btip" class="tip"></div><div id="selbar" hidden></div>
+      <div id="try" class="glass" hidden></div></div>
+    <div id="side"><div class="tabs"><button data-t="steps" class="on">Steps</button><button data-t="code">Code</button><button data-t="serial">Serial</button><button data-t="parts">Parts</button></div><div class="body" id="sbody"></div></div>
+  </div>
+</section>
+
+<section class="sec" id="lesson">
+  <div class="intro"><div><div class="kick mono" data-n="02"><i></i>Lesson</div><h2>How a board thinks</h2>
+    <p class="lead">Six ideas carry you from a blinking LED to a driving robot. Read them once, then go back to the bench and feel each one under your fingers.</p></div><div></div></div>
+  <div class="cards" id="lcards"></div>
+</section>
+
+<section class="sec" id="quiz">
+  <div class="intro"><div><div class="kick mono" data-n="03"><i></i>Quiz</div><h2>Check what stuck</h2>
+    <p class="lead">Eight quick questions. Every answer comes with the reason — the reason is the part worth keeping.</p></div><div></div></div>
+  <div class="q" id="qbox"></div>
+</section>
+
+<section class="sec" id="compare">
+  <div class="intro"><div><div class="kick mono" data-n="04"><i></i>Compare</div><h2>Pick the right board</h2>
+    <p class="lead">All eight side by side. Filter by what your project needs, then click a row to see the board in 3D.</p></div><div></div></div>
+  <div class="chips" id="chips"></div>
+  <div class="tblw"><table><thead><tr><th>Board</th><th>Brain</th><th>Clock</th><th>Flash</th><th>RAM</th><th>Logic</th><th>I/O pins</th><th>Analog in</th><th>Wireless</th><th>Typical price</th><th>Best for</th></tr></thead><tbody id="ctb"></tbody></table></div>
+</section>
+<section class="sec" id="logbook">
+  <div class="intro"><div><div class="kick mono" data-n="05"><i></i>Logbook</div><h2>Everything you built</h2>
+    <p class="lead">Each time you run a circuit on the bench or finish soldering a board, the lab writes down what went into it: boards, modules, wires and solder joints.</p></div>
+    <div class="feat"><div><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 2h10v12H3zM5.5 5.5h5M5.5 8h5M5.5 10.5h3"/></svg><span><b>Kept in this browser</b>The logbook and your saved projects live in this browser only. Copy them out if you want a backup.</span></div></div></div>
+  <div class="chips"><span class="pill on" id="lgSum"></span><button class="pill" id="lgCopy">Copy logbook</button><button class="pill" id="lgClear">Clear logbook</button></div>
+  <div class="cards" id="lgList"></div>
+</section>
+<footer class="end">Robotics Lab — board models are simplified teaching replicas; prices and specifications are indicative. Always check the official pinout before wiring real hardware.</footer>
+</main>
+
+<div id="modal" hidden><div class="box"><div class="hd"><h2 id="mTitle">Missions</h2><button class="pill" id="mClose">Close</button></div><div class="grid" id="mgrid"></div><div id="mbody"></div></div></div>
+<div id="toast"></div>
+
+<script src="vendor/three.min.js"></script>
+<script src="js/01-donnees.js" data-bundle="app"></script>
+<script src="js/02-outils.js" data-bundle="app"></script>
+<script src="js/03-modeles-3d.js" data-bundle="app"></script>
+<script src="js/04-galerie-assemblage.js" data-bundle="app"></script>
+<script src="js/05-atelier.js" data-bundle="app"></script>
+<script src="js/06-navigation-lecon-quiz.js" data-bundle="app"></script>
+<script src="js/07-demarrage.js" data-bundle="app"></script>
+</body></html>

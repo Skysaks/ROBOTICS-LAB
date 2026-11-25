@@ -1,0 +1,12 @@
+/* modal */
+#modal{position:fixed;inset:0;z-index:120;background:rgba(235,230,220,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:grid;place-items:center;padding:16px}
+#modal .box{background:var(--card);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:20px 20px 22px;width:min(960px,100%);max-height:92vh;overflow:auto}
+#modal .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}#modal h2{font:700 24px var(--serif);margin:0}
+#modal .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+#modal .m{text-align:left;background:#fff;border-radius:10px;padding:12px 13px;display:flex;flex-direction:column;min-height:120px;border:2px solid transparent;transition:transform .12s}
+#modal .m:hover{transform:translateY(-2px)}#modal .m.on{border-color:var(--ink)}
+#modal .m b{font:700 16.5px/1.2 var(--serif);margin:5px 0 5px}#modal .m p{margin:0 0 10px;font-size:12px;color:#5d5952;line-height:1.5}
+#modal .m em{margin-top:auto;font:normal 10px var(--mono);color:var(--red)}
+#modal .m.sand{background:#0c0c0c;color:#ddd}#modal .m.sand p{color:#bbb}#modal .m.sand em{color:#c79a4a}
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:#151515;color:#fff;padding:10px 16px;border-radius:10px;font-size:12.5px;z-index:200;opacity:0;transition:.25s;pointer-events:none;max-width:min(520px,92vw);text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}#toast.bad{background:#9c2f1e}#toast.good{background:#27603f}

@@ -1,0 +1,16 @@
+/* compléments : repères, listes d'assemblage */
+.lab.pin{font:600 8.5px/1 var(--mono);background:rgba(18,18,18,.88);color:#fff;padding:4px 1.5px;border-radius:3px;writing-mode:vertical-rl;transform:translate(-50%,-112%);box-shadow:none;letter-spacing:.02em}
+#adL{list-style:none;margin:0 0 12px;padding:8px 10px;max-height:150px;overflow:auto;text-align:left;font-size:11.5px;background:rgba(255,255,255,.6);border-radius:9px;line-height:1.7}
+#btool .pill:disabled{opacity:.35;cursor:default}#btool #bSol.on{background:var(--red);color:#fff;border-color:var(--red)}
+#bUndo,#bRedo{padding:0 11px;font-size:16px}
+.bom{list-style:none;margin:8px 0 12px;padding:0;font-size:12.5px}.bom li{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}.bom li b{font:700 12px var(--mono);min-width:34px}.bom li span{margin-left:auto;color:var(--mute);font:11px var(--mono);white-space:nowrap}
+.btnrow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+#mbody{font-size:13px}#mbody h4{font:700 15px var(--serif);margin:18px 0 8px}#mbody .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#mbody input[type=text],#mbody textarea{font:13px var(--sans);padding:8px 11px;border-radius:9px;border:1.5px solid var(--line);background:#fff;flex:1;min-width:180px;color:var(--ink)}
+#mbody textarea{width:100%;height:64px;font:11px var(--mono);resize:vertical;word-break:break-all}
+#mbody .pr{display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:9px 12px;margin-bottom:6px}#mbody .pr b{font:700 14.5px var(--serif)}#mbody .pr small{color:var(--mute);margin-right:auto}
+#mbody p.n{color:var(--mute);font-size:12px;margin:8px 0 0}
+.lg h3{font:700 17px var(--serif);margin:6px 0 2px}.lg ul{margin:8px 0 0;padding:0 0 0 16px;font-size:12.5px;color:#55514b;line-height:1.65}.lg small{color:var(--mute);font-size:11.5px}
+#modal .m .mono b{color:#27603f}
+@media(max-width:980px){#nav nav{gap:10px}#nav nav a{font-size:12px}}
+@media(max-width:620px){#nav nav{overflow-x:auto;scrollbar-width:none}#nav nav a{white-space:nowrap}}

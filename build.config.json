@@ -1,0 +1,59 @@
+{
+  "name": "Robotics Lab",
+  "repo": "Skysaks/ROBOTICS-LAB",
+  "lang": "en",
+  "budgetKo": 1000,
+  "pages": [
+    {
+      "src": "src/index.html",
+      "out": "dist/robotics-lab.html",
+      "site": "index.html",
+      "e2e": {
+        "ready": "#nav",
+        "flows": [
+          {
+            "name": "les six sections",
+            "steps": [
+              {
+                "click": "#nav [data-go=workbench]:visible",
+                "wait": 600
+              },
+              {
+                "click": "#nav [data-go=lesson]:visible",
+                "wait": 600
+              },
+              {
+                "click": "#nav [data-go=quiz]:visible",
+                "wait": 600
+              },
+              {
+                "click": "#nav [data-go=compare]:visible",
+                "wait": 600
+              },
+              {
+                "click": "#nav [data-go=logbook]:visible",
+                "wait": 600
+              },
+              {
+                "click": "#nav [data-go=boards]:visible",
+                "wait": 600
+              }
+            ]
+          }
+        ]
+      },
+      "captures": {
+        "wait": 3500
+      }
+    }
+  ],
+  "card": {
+    "kicker": "Électronique · 3D interactive",
+    "tagline": "Comprendre Arduino, ESP32 et Raspberry Pi en les assemblant.",
+    "background": "#1B1A18",
+    "accent": "#1BA3AB"
+  },
+  "e2e": {
+    "timeout": 150000
+  }
+}

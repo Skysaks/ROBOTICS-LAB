@@ -1,0 +1,15 @@
+/* nav */
+#nav{position:fixed;z-index:50;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:22px;padding:0 max(18px,env(safe-area-inset-right)) 0 max(22px,env(safe-area-inset-left));transition:background .3s}
+#nav.solid{background:rgba(235,230,220,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#nav .logo{display:flex;align-items:center;gap:8px;font:700 17px var(--serif);color:var(--ink);text-decoration:none;margin-right:auto}
+#nav .logo svg{color:#3f7d5a}
+#nav nav{display:flex;gap:22px}
+#nav nav a{color:#4c4944;text-decoration:none;font-size:13.5px;padding:4px 0;border-bottom:1.5px solid transparent}
+#nav nav a.on{color:var(--ink);border-color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 14px;border-radius:99px;background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.06);font-size:13px;white-space:nowrap;transition:transform .12s,background .15s}
+.pill:hover{background:#fff}.pill:active{transform:scale(.96)}
+.pill.dark{background:#0d0d0d;color:#fff;border-color:#0d0d0d}.pill.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);font-weight:600}
+.bars{display:inline-flex;gap:2px;align-items:flex-end;height:10px}.bars i{width:2px;background:currentColor;height:4px;border-radius:1px}
+.playing .bars i{animation:bar .7s ease-in-out infinite alternate}.bars i:nth-child(2){height:9px;animation-delay:.2s}.bars i:nth-child(3){height:6px;animation-delay:.4s}
+@keyframes bar{to{height:10px}}
+body.asm #nav nav,body.asm #nav #lofi{display:none}
